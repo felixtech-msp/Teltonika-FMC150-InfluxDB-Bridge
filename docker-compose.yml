@@ -1,0 +1,37 @@
+volumes:
+  influxdb_data:
+  influxdb_config:
+  grafana:
+
+services:
+  ingress:
+    image: sapmachine:jre-headless
+    restart: always
+    ports:
+      - 1883:1883/udp
+    volumes:
+      - ./avl8edecoder.jar:/ingress.jar:ro
+    command: ['java', '-jar', '/ingress.jar']
+    environment:
+      DEBUG: "false"
+      INFLUX_SERVER: "http://influxdb:8086"
+      INFLUX_TOKEN: "TODO"
+      INFLUX_ORG: "fleet"
+      INFLUX_BUCKET: "telematics"
+
+  influxdb:
+    image: influxdb:2
+    restart: always
+    ports:
+      - 8086:8086/tcp
+    volumes:
+      - influxdb_config:/etc/influxdb2
+      - influxdb_data:/var/lib/influxdb2
+
+  grafana:
+    image: grafana/grafana
+    restart: always
+    ports:
+      - 3000:3000/tcp
+    volumes:
+      - grafana:/var/lib/grafana
