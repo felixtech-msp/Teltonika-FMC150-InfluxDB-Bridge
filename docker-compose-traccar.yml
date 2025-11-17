@@ -1,0 +1,73 @@
+services:
+  traccar:
+    image: traccar/traccar:latest
+    restart: always
+    ports:
+      - 8082:8082
+    volumes:
+      - logs:/opt/traccar/logs
+    depends_on:
+      - db
+    environment:
+      CONFIG_USE_ENVIRONMENT_VARIABLES: "true"
+      DATABASE_DRIVER: com.mysql.cj.jdbc.Driver
+      DATABASE_URL: "jdbc:mysql://db:3306/traccar?zeroDateTimeBehavior=round&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false&allowMultiQueries=true&autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8&sessionVariables=sql_mode=''"
+      DATABASE_USER: traccar
+      DATABASE_PASSWORD: TODO
+    healthcheck:
+      test: [ "CMD", "wget", "-q", "--spider", "http://localhost:8082/api/health" ]
+      interval: 2m
+      timeout: 5s
+      start_period: 1h
+      retries: 3
+
+  db:
+    image: mariadb:latest
+    restart: always
+    volumes:
+      - data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: TODO
+      MYSQL_DATABASE: traccar
+      MYSQL_USER: traccar
+      MYSQL_PASSWORD: TODO
+
+  ingress:
+    image: sapmachine:jre-headless
+    restart: always
+    ports:
+      - 5027:5027/udp
+    volumes:
+      - ./avl8edecoder.jar:/ingress.jar:ro
+    command: ['java', '-jar', '/ingress.jar']
+    environment:
+      DEBUG: "false"
+      TRACCAR: "true"
+      INFLUX_SERVER: "http://influxdb:8086"
+      INFLUX_TOKEN: "TODO"
+      INFLUX_ORG: "fleet"
+      INFLUX_BUCKET: "telematics"
+
+  influxdb:
+    image: influxdb:2
+    restart: always
+    ports:
+      - 8086:8086/tcp
+    volumes:
+      - influxdb_config:/etc/influxdb2
+      - influxdb_data:/var/lib/influxdb2
+
+  grafana:
+    image: grafana/grafana
+    restart: always
+    ports:
+      - 3000:3000/tcp
+    volumes:
+      - grafana:/var/lib/grafana
+
+volumes:
+  data:
+  logs:
+  influxdb_data:
+  influxdb_config:
+  grafana:

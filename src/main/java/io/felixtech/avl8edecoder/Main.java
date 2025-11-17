@@ -8,6 +8,7 @@ import com.influxdb.client.write.Point;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.SocketException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -21,18 +22,20 @@ import static io.felixtech.avl8edecoder.Utilities.*;
  * Teltonika FMC150 UDP AVL Data Converter
  */
 public final class Main {
-    private static boolean DEBUG = false;
+    private static boolean DEBUG, TRACCAR;
     private static InfluxDBClient INFLUX;
     private static int PORT;
 
     private Main() {}
 
     static void main() {
-        // set debug mode
         try {
             DEBUG = System.getenv("DEBUG").equals("true");
+            TRACCAR = System.getenv("TRACCAR").equals("true");
         } catch (NullPointerException _) {
             DEBUG = false;
+            TRACCAR = false;
+        }
 
         try {
             PORT = Integer.parseInt(System.getenv("PORT"));
@@ -69,6 +72,14 @@ public final class Main {
                     byte[] data = new byte[receivePacket.getLength()];
                     System.arraycopy(buffer, 0, data, 0, receivePacket.getLength());
                     byte[] responseData = decode(data, receivePacket.getAddress().getHostAddress());
+
+                    if (TRACCAR) {
+                        // forward packet to Traccar (Traccar can't send a AVL ACK, so we have to send it)
+                        try (DatagramSocket traccarSocket = new DatagramSocket()) {
+                            DatagramPacket traccarPacket = new DatagramPacket(data, data.length, InetAddress.getByName("traccar"), 5027);
+                            traccarSocket.send(traccarPacket);
+                        }
+                    }
 
                     // send confirmation back
                     socket.send(new DatagramPacket(responseData, responseData.length, receivePacket.getAddress(), receivePacket.getPort()));
