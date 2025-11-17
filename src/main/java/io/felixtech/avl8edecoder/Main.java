@@ -23,6 +23,7 @@ import static io.felixtech.avl8edecoder.Utilities.*;
 public final class Main {
     private static boolean DEBUG = false;
     private static InfluxDBClient INFLUX;
+    private static int PORT;
 
     private Main() {}
 
@@ -32,6 +33,11 @@ public final class Main {
             DEBUG = System.getenv("DEBUG").equals("true");
         } catch (NullPointerException _) {
             DEBUG = false;
+
+        try {
+            PORT = Integer.parseInt(System.getenv("PORT"));
+        } catch (NullPointerException | NumberFormatException _) {
+            PORT = 5027;
         }
 
         // connect to InfluxDB 2
@@ -49,9 +55,9 @@ public final class Main {
             return;
         }
 
-        // listen to port 1883/udp
-        try (DatagramSocket socket = new DatagramSocket(1883)) {
-            System.out.println("Listening to 1883/udp ...");
+        // listen to UDP port
+        try (DatagramSocket socket = new DatagramSocket(PORT)) {
+            System.out.println("Listening to " + PORT + "/udp ...");
 
             while (true) {
                 byte[] buffer = new byte[1283];
@@ -70,7 +76,7 @@ public final class Main {
                     if (DEBUG) {
                         System.out.println("----------");
                     }
-                } catch (IOException ex) {
+                } catch (IOException | RuntimeException ex) {
                     System.err.println(ex);
                 }
             }

@@ -8,7 +8,7 @@ services:
     image: sapmachine:jre-headless
     restart: always
     ports:
-      - 1883:1883/udp
+      - 5027:5027/udp
     volumes:
       - ./avl8edecoder.jar:/ingress.jar:ro
     command: ['java', '-jar', '/ingress.jar']
