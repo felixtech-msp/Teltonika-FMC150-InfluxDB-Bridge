@@ -1,22 +1,27 @@
 package io.felixtech.avl8edecoder;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 final class Utilities {
     private Utilities() {}
 
-    static <T extends Number> void printMap(Map<Short, T> map) {
-        for (var entry : map.entrySet()) {
-            System.out.println(entry.getKey() + " " + AVLMap.AVL_NAMES.get((int) entry.getKey()) + ": " + entry.getValue());
+    static <T extends Number> void printMap(Map<Integer, String> avlMap, Map<Short, T> varMap) {
+        for (var entry : varMap.entrySet()) {
+            System.out.println(entry.getKey() + " " + avlMap.get((int) entry.getKey()) + ": " + entry.getValue());
         }
     }
 
-    static void printVarMap(Map<Short, byte[]> map) {
-        for (var entry : map.entrySet()) {
+    static void printVarMap(Map<Integer, String> avlMap, Map<Short, byte[]> varMap) {
+        for (var entry : varMap.entrySet()) {
             ByteBuffer bb = ByteBuffer.allocate(entry.getValue().length);
             bb.put(entry.getValue());
-            System.out.println(entry.getKey() + " " + AVLMap.AVL_NAMES.get((int) entry.getKey()) + ": " + bb.getLong());
+            System.out.println(entry.getKey() + " " + avlMap.get((int) entry.getKey()) + ": " + bb.getLong());
         }
     }
 
@@ -43,5 +48,30 @@ final class Utilities {
         }
 
         return data;
+    }
+
+    static Map<Integer, String> readAvlMap(String file) throws IOException {
+        List<String> rows = Files.readAllLines(Path.of(file));
+        Map<Integer, String> avlmap = new HashMap<>();
+
+        for (String row : rows) {
+            String[] csv = row.split(";");
+            int id = Integer.parseInt(csv[0]);
+            avlmap.put(id, csv[1]);
+        }
+
+        return avlmap;
+    }
+
+    static Map<String, String> readImeiMap() throws IOException {
+        List<String> rows = Files.readAllLines(Path.of("imei.csv"));
+        Map<String, String> imeiMap = new HashMap<>();
+
+        for (String row : rows) {
+            String[] csv = row.split(";");
+            imeiMap.put(csv[0], csv[1]);
+        }
+
+        return imeiMap;
     }
 }

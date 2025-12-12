@@ -19,12 +19,14 @@ import java.util.Map;
 import static io.felixtech.avl8edecoder.Utilities.*;
 
 /**
- * Teltonika FMC150 UDP AVL Data Converter
+ * Teltonika UDP AVL Data Converter
  */
 public final class Main {
     private static boolean DEBUG, TRACCAR;
     private static InfluxDBClient INFLUX;
     private static int PORT;
+    private static Map<String, String> IMEI_MAP;
+    private static Map<Integer, String> FMC150, FMC650;
 
     private Main() {}
 
@@ -41,6 +43,23 @@ public final class Main {
             PORT = Integer.parseInt(System.getenv("PORT"));
         } catch (NullPointerException | NumberFormatException _) {
             PORT = 5027;
+        }
+
+        try {
+            FMC150 = readAvlMap("fmc150.csv");
+            FMC650 = readAvlMap("fmc650.csv");
+        } catch (IOException ex) {
+            System.err.println("Unable to read AVL maps.");
+            ex.printStackTrace();
+            return;
+        }
+
+        try {
+            IMEI_MAP = readImeiMap();
+        } catch (IOException ex) {
+            System.err.println("Unable to read IMEI map.");
+            ex.printStackTrace();
+            return;
         }
 
         // connect to InfluxDB 2
@@ -71,7 +90,6 @@ public final class Main {
                     socket.receive(receivePacket);
                     byte[] data = new byte[receivePacket.getLength()];
                     System.arraycopy(buffer, 0, data, 0, receivePacket.getLength());
-                    byte[] responseData = decode(data, receivePacket.getAddress().getHostAddress());
 
                     if (TRACCAR) {
                         // forward packet to Traccar (Traccar can't send a AVL ACK, so we have to send it)
@@ -80,6 +98,8 @@ public final class Main {
                             traccarSocket.send(traccarPacket);
                         }
                     }
+
+                    byte[] responseData = decode(data, receivePacket.getAddress().getHostAddress());
 
                     // send confirmation back
                     socket.send(new DatagramPacket(responseData, responseData.length, receivePacket.getAddress(), receivePacket.getPort()));
@@ -223,11 +243,6 @@ public final class Main {
             System.out.println("Event IO ID: " + eventIoId);
             System.out.println("Number of Properties: " + numProperties);
             System.out.println("Number of variable length fields: " + numVarIo);
-            printMap(map1byteIo);
-            printMap(map2byteIo);
-            printMap(map4byteIo);
-            printMap(map8byteIo);
-            printVarMap(mapVarIo);
         } else {
             System.out.printf("Received %s packet %s from %s (%s) with %d records.%n", codec, packetId, sourceIp, imei, numRecords1);
         }
@@ -243,24 +258,39 @@ public final class Main {
         dataMap.put("speed", speed);
         dataMap.put("satellites", satellites);
 
+        String device = IMEI_MAP.get(imei);
+        Map<Integer, String> avlmap = switch (device) {
+            case "FMC150" -> FMC150;
+            case "FMC650" -> FMC650;
+            default -> throw new RuntimeException("IMEI is not mapped to a device type");
+        };
+
         for (var entry : map1byteIo.entrySet()) {
-            dataMap.put(AVLMap.AVL_NAMES.get((int) entry.getKey()).replace(' ', '_'), entry.getValue());
+            dataMap.put(avlmap.get((int) entry.getKey()).replace(' ', '_'), entry.getValue());
         }
 
         for (var entry : map2byteIo.entrySet()) {
-            dataMap.put(AVLMap.AVL_NAMES.get((int) entry.getKey()).replace(' ', '_'), entry.getValue());
+            dataMap.put(avlmap.get((int) entry.getKey()).replace(' ', '_'), entry.getValue());
         }
 
         for (var entry : map4byteIo.entrySet()) {
-            dataMap.put(AVLMap.AVL_NAMES.get((int) entry.getKey()).replace(' ', '_'), entry.getValue());
+            dataMap.put(avlmap.get((int) entry.getKey()).replace(' ', '_'), entry.getValue());
         }
 
         for (var entry : map8byteIo.entrySet()) {
-            dataMap.put(AVLMap.AVL_NAMES.get((int) entry.getKey()).replace(' ', '_'), entry.getValue());
+            dataMap.put(avlmap.get((int) entry.getKey()).replace(' ', '_'), entry.getValue());
         }
 
         for (var entry : mapVarIo.entrySet()) {
-            dataMap.put(AVLMap.AVL_NAMES.get((int) entry.getKey()).replace(' ', '_'), entry.getValue());
+            dataMap.put(avlmap.get((int) entry.getKey()).replace(' ', '_'), entry.getValue());
+        }
+
+        if (DEBUG) {
+            printMap(avlmap, map1byteIo);
+            printMap(avlmap, map2byteIo);
+            printMap(avlmap, map4byteIo);
+            printMap(avlmap, map8byteIo);
+            printVarMap(avlmap, mapVarIo);
         }
 
         push(dataMap);

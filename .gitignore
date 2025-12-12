@@ -1,5 +1,6 @@
 /target/
 /out/
+/imei.csv
 
 ### IntelliJ IDEA ###
 .idea/modules.xml

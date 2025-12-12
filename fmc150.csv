@@ -1,0 +1,346 @@
+239;Ignition
+240;Movement
+80;Data Mode
+21;GSM Signal
+200;Sleep Mode
+69;GNSS Status
+181;GNSS PDOP
+182;GNSS HDOP
+66;External Voltage
+24;Speed
+205;GSM Cell ID
+206;GSM Area Code
+67;Battery Voltage
+68;Battery Current
+241;Active GSM Operator
+199;Trip Odometer
+16;Total Odometer
+1;Digital Input 1
+9;Analog Input 1
+179;Digital Output 1
+12;Fuel Used GPS
+13;Fuel Rate GPS
+17;Axis X
+18;Axis Y
+19;Axis Z
+11;ICCID1
+10;SD Status
+2;Digital Input 2
+3;Digital Input 3
+6;Analog Input 2
+180;Digital Output 2
+72;Dallas Temperature 1
+73;Dallas Temperature 2
+74;Dallas Temperature 3
+75;Dallas Temperature 4
+76;Dallas Temperature ID 1
+77;Dallas Temperature ID 2
+79;Dallas Temperature ID 3
+71;Dallas Temperature ID 4
+78;iButton
+207;RFID
+201;LLS 1 Fuel Level
+202;LLS 1 Temperature
+203;LLS 2 Fuel Level
+204;LLS 2 Temperature
+210;LLS 3 Fuel Level
+211;LLS 3 Temperature
+212;LLS 4 Fuel Level
+213;LLS 4 Temperature
+214;LLS 5 Fuel Level
+215;LLS 5 Temperature
+15;Eco Score
+113;Battery Level
+238;User ID
+237;Network Type
+8;Authorized iButton
+4;Pulse Counter Din1
+5;Pulse Counter Din2
+263;BT Status
+264;Barcode ID
+269;Escort LLS Temperature #1
+271;Escort LLS Battery Voltage #1
+272;Escort LLS Temperature #2
+274;Escort LLS Battery Voltage #2
+275;Escort LLS Temperature #3
+277;Escort LLS Battery Voltage #3
+278;Escort LLS Temperature #4
+280;Escort LLS Battery Voltage #4
+303;Instant Movement
+327;UL202-02 Sensor Fuel level
+483;UL202-02 Sensor Status
+380;Digital output 3
+381;Ground Sense
+387;ISO6709 Coordinates
+636;UMTS/LTE Cell ID
+403;Driver Name
+404;Driver card license type
+405;Driver Gender
+406;Driver Card ID
+407;Driver card expiration date
+408;Driver Card place of issue
+409;Driver Status Event
+329;AIN Speed
+500;MSP500 vendor name
+501;MSP500 vehicle number
+502;MSP500 speed sensor
+622;Frequency DIN1
+623;Frequency DIN2
+637;Wake Reason
+155;Geofence zone 01
+156;Geofence zone 02
+157;Geofence zone 03
+158;Geofence zone 04
+159;Geofence zone 05
+61;Geofence zone 06
+62;Geofence zone 07
+63;Geofence zone 08
+64;Geofence zone 09
+65;Geofence zone 10
+70;Geofence zone 11
+88;Geofence zone 12
+91;Geofence zone 13
+92;Geofence zone 14
+93;Geofence zone 15
+94;Geofence zone 16
+95;Geofence zone 17
+96;Geofence zone 18
+97;Geofence zone 19
+98;Geofence zone 20
+99;Geofence zone 21
+153;Geofence zone 22
+154;Geofence zone 23
+190;Geofence zone 24
+191;Geofence zone 25
+192;Geofence zone 26
+193;Geofence zone 27
+194;Geofence zone 28
+195;Geofence zone 29
+196;Geofence zone 30
+197;Geofence zone 31
+198;Geofence zone 32
+208;Geofence zone 33
+209;Geofence zone 34
+216;Geofence zone 35
+217;Geofence zone 36
+218;Geofence zone 37
+219;Geofence zone 38
+220;Geofence zone 39
+221;Geofence zone 40
+222;Geofence zone 41
+223;Geofence zone 42
+224;Geofence zone 43
+225;Geofence zone 44
+226;Geofence zone 45
+227;Geofence zone 46
+228;Geofence zone 47
+229;Geofence zone 48
+230;Geofence zone 49
+231;Geofence zone 50
+175;Auto Geofence
+250;Trip
+255;Over Speeding
+257;Crash trace data
+285;Blood alcohol content
+251;Idling
+253;Green driving type
+246;Towing
+252;Unplug
+247;Crash detection
+248;Immobilizer
+254;Green Driving Value
+249;Jamming
+14;ICCID2
+243;Green driving event duration
+236;Alarm
+258;EcoMaximum
+259;EcoAverage
+260;EcoDuration
+283;Driving State
+284;Driving Records
+391;Private mode
+317;Crash event counter
+449;Ignition On Counter
+256;VIN
+30;Number of DTC
+31;Engine Load
+32;Coolant Temperature
+33;Short Fuel Trim
+34;Fuel pressure
+35;Intake MAP
+36;Engine RPM
+37;Vehicle Speed
+38;Timing Advance
+39;Intake Air Temperature
+40;MAF
+41;Throttle Position
+42;Runtime since engine start
+43;Distance Traveled MIL On
+44;Relative Fuel Rail Pressure
+45;Direct Fuel Rail Pressure
+46;Commanded EGR
+47;EGR Error
+48;Fuel Level
+49;Distance Since Codes Clear
+50;Barometic Pressure
+51;Control Module Voltage
+52;Absolute Load Value
+759;Fuel Type
+53;Ambient Air Temperature
+54;Time Run With MIL On
+55;Time Since Codes Cleared
+56;Absolute Fuel Rail Pressure
+57;Hybrid battery pack life
+58;Engine Oil Temperature
+59;Fuel injection timing
+543;Hybrid System Voltage
+544;Hybrid System Current
+281;Fault Codes
+60;Fuel Rate
+385;Beacon
+25;BLE Temperature #1
+26;BLE Temperature #2
+27;BLE Temperature #3
+28;BLE Temperature #4
+29;BLE Battery #1
+20;BLE Battery #2
+22;BLE Battery #3
+23;BLE Battery #4
+86;BLE Humidity #1
+104;BLE Humidity #2
+106;BLE Humidity #3
+108;BLE Humidity #4
+270;BLE Fuel Level #1
+273;BLE Fuel Level #2
+276;BLE Fuel Level #3
+279;BLE Fuel Level #4
+306;BLE Fuel Frequency #1
+307;BLE Fuel Frequency #2
+308;BLE Fuel Frequency #3
+309;BLE Fuel Frequency #4
+335;BLE Luminosity #1
+336;BLE Luminosity #2
+337;BLE Luminosity #3
+338;BLE Luminosity #4
+331;BLE 1 Custom #1
+463;BLE 1 Custom #2
+464;BLE 1 Custom #3
+465;BLE 1 Custom #4
+466;BLE 1 Custom #5
+332;BLE 2 Custom #1
+467;BLE 2 Custom #2
+468;BLE 2 Custom #3
+469;BLE 2 Custom #4
+470;BLE 2 Custom #5
+333;BLE 3 Custom #1
+471;BLE 3 Custom #2
+472;BLE 3 Custom #3
+473;BLE 3 Custom #4
+474;BLE 3 Custom #5
+334;BLE 4 Custom #1
+475;BLE 4 Custom #2
+476;BLE 4 Custom #3
+477;BLE 4 Custom #4
+478;BLE 4 Custom #5
+115;Engine Coolant Temperature
+85;Engine Speed
+81;Vehicle Speed
+82;Throttle position
+89;Fuel Level
+87;Total Mileage
+84;Fuel Level
+400;Distance till next servicing
+866;Remaining distance
+940;Seat Belt Status Front Left
+941;Seat Belt Status Front Right
+942;Seat Belt Status Rear Left
+943;Seat Belt Status Rear Right
+654;Door Status Front Left
+655;Door Status Front Right
+656;Door Status Rear Left
+657;Door Status Rear Right
+913;Bonnet status
+658;Trunk status
+152;HVBattery charge level
+937;Cruise Control Active
+910;Brake switch
+928;Lamp Side
+929;Lamp Dimmed
+930;Lamp Reflector
+932;Lamp Fog Front
+931;Lamp Fog Rear
+653;Parking Brake State
+911;Clutch switch
+168;Battery Voltage
+662;Central Lock
+944;Seat Belt Status Rear Center
+1112;EV HV Battery Voltage
+1113;EV HV Battery Current
+1157;EV HV Battery Power
+105;Total Mileage Counted
+107;Fuel Consumed Counted
+1156;HV Battery Recuperated Energy
+1155;HV Battery Consumed Energy
+83;Fuel Consumption
+1413;Turn signal left
+1414;Turn signal right
+325;VIN
+1418;Electric motor temperature
+1415;Charge port flap
+914;BAT Battery Charge Cable Plugged in
+915;HVBattery charge state
+660;Automatic Transmission Lever State P
+661;Automatic Transmission Lever State R
+659;Automatic Transmission Lever State N
+927;Automatic Transmission Lever State D
+1158;Engine Oil Pressure
+1159;Engine Oil Level
+1137;Steering Wheel Angle
+1358;Steering Wheel Direction Left
+1359;Steering Wheel Direction Right
+1360;EV ECO Switch
+1362;Position Status of All doors
+1331;Transmission Selected Gear
+1332;Transmission Current Gear
+1333;Steering wheel turn counter
+1361;Ramp/WheelChairLift Status
+1335;Exhaust Fluid Tank level (AdBlue)
+1336;Bellow pressure FR axle
+1337;Bellow pressure FL axle
+1338;Bellow pressure RR axle
+1339;Bellow pressure RL axle
+1364;Vehicle Overspeed
+1220;Gross Combination Vehicle Weight
+1341;Gaseous Fuel Rate
+1366;Alternator Status 1
+1367;Alternator Status 2
+1368;Alternator Status 3
+1369;Alternator Status 4
+102;Engine Total Hours
+103;Engine Total Hours (counted)
+118;Axle 1 Load
+119;Axle 2 Load
+120;Axle 3 Load
+121;Axle 4 Load
+122;Axle 5 Load
+1342;Axle 6 Load
+1270;Engine Oil Temperature
+1343;Engine Fuel Temperature
+1344;Cruise Control Set Speed
+1345;Instant Fuel Economy
+1352;Engine Air Intake Pressure
+1373;Door 1 Lock Status
+1374;Door 2 Lock Status
+1375;Door 3 Lock Status
+1376;Door 4 Lock Status
+936;AC On
+956;ESP Enabled
+114;Engine Torque
+1396;Ambient Air Temperature
+1397;ASR Enabled
+1416;Windscreen Wiper
+946;PTO state
+1116;Max Road Speed
+1117;Exceeded Road Speed
+1205;AF Speed Limit Sign Recognized
+1207;AF Exceeding Speed Indicated By Speed Limit Sign
